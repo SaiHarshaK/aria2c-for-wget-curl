@@ -45,6 +45,21 @@ if __name__ == '__main__':
   dnld.add_argument('--password', help="set both ftp and http password to PASS")
   dnld.add_argument('--unlink', action='store_true', help="remove file before clobber")
 
+  http_opt = parser.add_argument_group('HTTP options:')
+  http_opt.add_argument('--http-user', help="set http user to USER")
+  http_opt.add_argument('--http-password', help="set http password to PASS")
+  http_opt.add_argument('--no-cache', action='store_true', help="disallow server-cached data")
+  http_opt.add_argument('--header', help="insert STRING among the headers")
+  http_opt.add_argument('--proxy-user', help="set USER as proxy username")
+  http_opt.add_argument('--proxy-password', help="set PASS as proxy password")
+  http_opt.add_argument('--referer', help="include 'Referer: URL' header in HTTP request")
+  http_opt.add_argument('-U', '--user-agent', help="identify as AGENT instead of Wget/VERSION")
+  http_opt.add_argument('--no-http-keep-alive', action='store_true', help="disable HTTP keep-alive (persistent connections)")
+  http_opt.add_argument('--load-cookies', help="load cookies from FILE before session")
+  http_opt.add_argument('--save-cookies', help="save cookies to FILE after session (session cookies are also saved)")
+  http_opt.add_argument('--referer', help="include 'Referer: URL' header in HTTP request")
+  http_opt.add_argument('--auth-no-challenge', action='store_true', help="send Basic HTTP authentication information without first waiting for the server's challenge")
+
   parser.add_argument('args', nargs=argparse.REMAINDER)
   args = parser.parse_args()
   print(args)
@@ -91,8 +106,6 @@ if __name__ == '__main__':
       cmd += " --interface " + args.bind_address
     if args.limit_rate != None:
       cmd += " --max-overall-download-limit= " + args.limit_rate
-    if args.bind_address != None:
-      cmd += " --interface " + args.bind_address
     if args.ignore_case is True:
       cmd += " --auto-file-renaming=false"
     if args.inet4_only is True:
@@ -106,8 +119,32 @@ if __name__ == '__main__':
     if args.unlink is True:
       cmd += " --allow-overwrite"
 
+    if args.http_user != None:
+      cmd += " --http-user " + args.http_user
+    if args.http_password != None:
+      cmd += " --http-passwd " + args.http_password
+    if args.no_cache is True:
+      cmd += " --http-no-cache"
+    if args.header != None:
+      cmd += " --header " + args.header
+    if args.proxy_user != None:
+      cmd += " --http-proxy-user " + args.proxy_user
+    if args.proxy_password != None:
+      cmd += " --http-proxy-passwd " + args.proxy_password
+    if args.referer != None:
+      cmd += " --referer " + args.referer
+    if args.user_agent != None:
+      cmd += " --user-agent " + args.user-agent
+    if args.no_http_keep_alive is True:
+      cmd += " --enable-http-keep-alive=false"
+    if args.load_cookies != None:
+      cmd += " --load-cookies " + args.load_cookies
+    if args.save_cookies != None:
+      cmd += " --save-cookies " + args.save_cookies
+    if args.auth_no_challenge is False: # check this later
+      cmd += " --http-auth-challenge=true"
+
     print(cmd)
 
   else:
     exec_orig()
-
