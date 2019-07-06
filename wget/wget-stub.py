@@ -57,8 +57,17 @@ if __name__ == '__main__':
   http_opt.add_argument('--no-http-keep-alive', action='store_true', help="disable HTTP keep-alive (persistent connections)")
   http_opt.add_argument('--load-cookies', help="load cookies from FILE before session")
   http_opt.add_argument('--save-cookies', help="save cookies to FILE after session (session cookies are also saved)")
-  http_opt.add_argument('--referer', help="include 'Referer: URL' header in HTTP request")
   http_opt.add_argument('--auth-no-challenge', action='store_true', help="send Basic HTTP authentication information without first waiting for the server's challenge")
+
+  https_opt = parser.add_argument_group('HTTPS (SSL/TLS) options:')
+  https_opt.add_argument('--certificate', help="client certificate file. PKCS12 (.p12, .pfx) or in PEM format")
+  https_opt.add_argument('--private-key', help="private key file. PEM format")
+  https_opt.add_argument('--ca-certificate', help="file with the bundle of CAs. PEM format.")
+
+  ftp_opt = parser.add_argument_group('FTP options:')
+  ftp_opt.add_argument('--ftp-user', help="set ftp user to USER")
+  ftp_opt.add_argument('--ftp-password', help="set ftp password to PASS")
+  ftp_opt.add_argument('--no-passive-ftp', action='store_true', help='disable the "passive" transfer mode')
 
   parser.add_argument('args', nargs=argparse.REMAINDER)
   args = parser.parse_args()
@@ -141,8 +150,22 @@ if __name__ == '__main__':
       cmd += " --load-cookies " + args.load_cookies
     if args.save_cookies != None:
       cmd += " --save-cookies " + args.save_cookies
-    if args.auth_no_challenge is False: # check this later
+    if args.auth_no_challenge is False:
       cmd += " --http-auth-challenge=true"
+
+    if args.certificate != None:
+      cmd += " --certificate " + args.certificate
+    if args.private_key != None:
+      cmd += " --private-key " + args.private_key
+    if args.ca_certificate != None:
+      cmd += " --ca-certificate " + args.ca_certificate
+
+    if args.ftp_user != None:
+      cmd += " --ftp-user " + args.ftp_user
+    if args.ftp_password != None:
+      cmd += " --ftp-passwd " + args.ftp_password
+    if args.no_passive_ftp is True:
+      cmd += " --ftp-pasv=false"
 
     print(cmd)
 
