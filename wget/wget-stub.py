@@ -10,9 +10,12 @@ def exec_orig():
   print(cmd)
 
 if __name__ == '__main__':
-  parser = argparse.ArgumentParser()
-  parser.add_argument('cmd')
-  parser.add_argument('source', metavar='URLs', type=str, nargs='+')
+  parser = argparse.ArgumentParser(
+            description='GNU Wget stub for aria2c.\n' +
+            'Mandatory arguments to long options are mandatory for short options too.',
+            prog='wget', usage='%(prog)s [OPTION]... [URL]...', formatter_class=argparse.RawDescriptionHelpFormatter)
+  parser.add_argument('cmd', help=argparse.SUPPRESS)
+  parser.add_argument('source', metavar='URLs', type=str, nargs='+', help=argparse.SUPPRESS)
 
   logging = parser.add_argument_group('Logging and input file:')
   logging.add_argument('-o', '--output-file', metavar="FILE" , help="log messages to FILE")
@@ -69,7 +72,7 @@ if __name__ == '__main__':
   ftp_opt.add_argument('--ftp-password', help="set ftp password to PASS")
   ftp_opt.add_argument('--no-passive-ftp', action='store_true', help='disable the "passive" transfer mode')
 
-  parser.add_argument('args', nargs=argparse.REMAINDER)
+  parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
   args = parser.parse_args()
   print(args)
 
