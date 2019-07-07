@@ -37,3 +37,8 @@ Press <enter> to keep the current choice[*], or type selection number:
 ```
 
 * The setup is ready, try using wget now.
+
+
+## Screenshots
+![wget-aria2c](https://raw.githubusercontent.com/SaiHarshaK/aria2c-for-wget-curl/master/wget/screenshots/wget-aria.png)
+![wget-orig](https://raw.githubusercontent.com/SaiHarshaK/aria2c-for-wget-curl/master/wget/screenshots/wget-orig.png)
