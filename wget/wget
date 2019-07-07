@@ -1,14 +1,18 @@
 #!/usr/bin/env python3
 import argparse
-import sys
 import os
-
-# orig if, -V, -h, -b, -e
+import subprocess
+import sys
 
 def exec_orig():
   print("Using wget:")
-  cmd = 'wget '
-  cmd += ' '.join(sys.argv[1:])
+  cmd = []
+  cmd.append('wget')
+  iterArgs = iter(sys.argv)
+  next(iterArgs)
+  for arg in iterArgs:
+    cmd.append(arg)
+  subprocess.run(cmd)
 
 if __name__ == '__main__':
   parser = argparse.ArgumentParser(
@@ -77,96 +81,128 @@ if __name__ == '__main__':
 
   if len(args.args) == 0:
     # construct aria2c command
-    cmd = "aria2c "
-    cmd += ' '.join(args.source)
+    cmd = []
+    cmd.append("aria2c")
     # conditions for executing original
-    # -d, nv
     if args.output_file != None:
       # remove this file, so new data is written
       os.remove(args.output_file)
-      cmd += " -l " + args.output_file
+      cmd.append("-l")
+      cmd.append(args.output_file)
     if args.append_output != None:
-      cmd += " -l " + args.append_output
+      cmd.append("-l")
+      cmd.append(args.append_output)
     if args.debug is True:
-      cmd += " --log-level=debug"
+      cmd.append("--log-level=debug")
     if args.quiet is True:
-      cmd += " -q"
+      cmd.append("-q")
     if args.input_file != None:
-      cmd += " -i " + args.input_file
+      cmd.append("-i")
+      cmd.append(args.input_file)
 
     if args.tries != None:
-      cmd += " -m " + args.tries
+      cmd.append("-m")
+      cmd.append(args.tries)
     if args.output_document != None:
-      cmd += " -o " + args.output_document
+      cmd.append("-o")
+      cmd.append(args.output_document)
     if args.no_clobber is True:
-      cmd += " --auto-file-renaming=false"
+      cmd.append("--auto-file-renaming=false")
     if args.no_netrc is True:
-      cmd += " --no-netrc"
+      cmd.append("--no-netrc")
     if args.contin is True:
-      cmd += " -c"
+      cmd.append("-c")
     if args.timestamping is True:
-      cmd += " --conditional-get"
+      cmd.append("--conditional-get")
     if args.timeout != None:
-      cmd += " -t " + args.timeout
+      cmd.append("-t")
+      cmd.append(args.timeout)
     if args.connect_timeout != None:
-      cmd += " --connect-timeout " + args.connect_timeout
+      cmd.append("--connect-timeout")
+      cmd.append(args.connect_timeout)
     if args.wait != None:
-      cmd += " --retry-wait " + args.wait
+      cmd.append("--retry-wait")
+      cmd.append(args.wait)
     if args.bind_address != None:
-      cmd += " --interface " + args.bind_address
+      cmd.append("--interface")
+      cmd.append(args.bind_address)
     if args.limit_rate != None:
-      cmd += " --max-overall-download-limit= " + args.limit_rate
+      cmd.append("--max-overall-download-limit=")
+      cmd.append(args.limit_rate)
     if args.ignore_case is True:
-      cmd += " --auto-file-renaming=false"
+      cmd.append("--auto-file-renaming=false")
     if args.inet4_only is True:
-      cmd += " --disable-ipv6"
+      cmd.append("--disable-ipv6")
     if args.user != None:
-      cmd += " --http-user " + args.user
-      cmd += " --ftp-user " + args.user
+      cmd.append("--http-user")
+      cmd.append(args.user)
+      cmd.append("--ftp-user")
+      cmd.append(args.user)
     if args.password != None:
-      cmd += " --http-passwd " + args.password
-      cmd += " --ftp-passwd " + args.password
+      cmd.append("--http-passwd")
+      cmd.append(args.password)
+      cmd.append("--ftp-passwd")
+      cmd.append(args.password)
     if args.unlink is True:
-      cmd += " --allow-overwrite"
+      cmd.append("--allow-overwrite")
 
     if args.http_user != None:
-      cmd += " --http-user " + args.http_user
+      cmd.append("--http-user")
+      cmd.append(args.http_user)
     if args.http_password != None:
-      cmd += " --http-passwd " + args.http_password
+      cmd.append("--http-passwd")
+      cmd.append(args.http_password)
     if args.no_cache is True:
-      cmd += " --http-no-cache"
+      cmd.append("--http-no-cache")
     if args.header != None:
-      cmd += " --header " + args.header
+      cmd.append("--header")
+      cmd.append(args.header)
     if args.proxy_user != None:
-      cmd += " --http-proxy-user " + args.proxy_user
+      cmd.append("--http-proxy-user")
+      cmd.append(args.proxy_user)
     if args.proxy_password != None:
-      cmd += " --http-proxy-passwd " + args.proxy_password
+      cmd.append("--http-proxy-passwd")
+      cmd.append(args.proxy_password)
     if args.referer != None:
-      cmd += " --referer " + args.referer
+      cmd.append("--referer")
+      cmd.append(args.referer)
     if args.user_agent != None:
-      cmd += " --user-agent " + args.user-agent
+      cmd.append("--user-agent")
+      cmd.append(args.user_agent)
     if args.no_http_keep_alive is True:
-      cmd += " --enable-http-keep-alive=false"
+      cmd.append("--enable-http-keep-alive=false")
     if args.load_cookies != None:
-      cmd += " --load-cookies " + args.load_cookies
+      cmd.append("--load-cookies")
+      cmd.append(args.load_cookies)
     if args.save_cookies != None:
-      cmd += " --save-cookies " + args.save_cookies
+      cmd.append("--save-cookies")
+      cmd.append(args.save_cookies)
     if args.auth_no_challenge is False:
-      cmd += " --http-auth-challenge=true"
+      cmd.append("--http-auth-challenge=true")
 
     if args.certificate != None:
-      cmd += " --certificate " + args.certificate
+      cmd.append("--certificate")
+      cmd.append(args.certificate)
     if args.private_key != None:
-      cmd += " --private-key " + args.private_key
+      cmd.append("--private-key")
+      cmd.append(args.private_key)
     if args.ca_certificate != None:
-      cmd += " --ca-certificate " + args.ca_certificate
+      cmd.append("--ca-certificate")
+      cmd.append(args.ca_certificate)
 
     if args.ftp_user != None:
-      cmd += " --ftp-user " + args.ftp_user
+      cmd.append("--ftp-user")
+      cmd.append(args.ftp_user)
     if args.ftp_password != None:
-      cmd += " --ftp-passwd " + args.ftp_password
+      cmd.append("--ftp-passwd")
+      cmd.append(args.ftp_password)
     if args.no_passive_ftp is True:
-      cmd += " --ftp-pasv=false"
+      cmd.append("--ftp-pasv=false")
+
+    for source in args.source:
+      cmd.append(source)
+
+    subprocess.run(cmd)
 
   else:
     exec_orig()
