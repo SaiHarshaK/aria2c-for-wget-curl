@@ -7,7 +7,7 @@ import sys
 def exec_orig():
   print("Using wget:")
   cmd = []
-  cmd.append('wget')
+  cmd.append('wget-orig')
   iterArgs = iter(sys.argv)
   next(iterArgs)
   for arg in iterArgs:
@@ -207,6 +207,7 @@ if __name__ == '__main__':
     for source in args.source:
       cmd.append(source)
 
+    print("Using aria2c:")
     subprocess.run(cmd)
 
   else:
