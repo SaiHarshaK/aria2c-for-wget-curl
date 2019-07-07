@@ -12,6 +12,10 @@ def exec_orig():
   next(iterArgs)
   for arg in iterArgs:
     cmd.append(arg)
+
+  # remove "--orig" if present
+  if '--orig' in cmd: cmd.remove('--orig')
+
   subprocess.run(cmd)
 
 if __name__ == '__main__':
@@ -20,6 +24,7 @@ if __name__ == '__main__':
             'Mandatory arguments to long options are mandatory for short options too.',
             prog='wget', usage='%(prog)s [OPTION]... [URL]...', formatter_class=argparse.RawDescriptionHelpFormatter)
   parser.add_argument('source', metavar='URLs', type=str, nargs='+', help=argparse.SUPPRESS)
+  parser.add_argument('--orig', action='store_true', help="Use original GNU wget")
 
   logging = parser.add_argument_group('Logging and input file')
   logging.add_argument('-o', '--output-file', metavar="FILE" , help="log messages to FILE")
@@ -79,7 +84,7 @@ if __name__ == '__main__':
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
   args = parser.parse_args()
 
-  if len(args.args) == 0:
+  if len(args.args) == 0 and args.orig is False:
     # construct aria2c command
     cmd = []
     cmd.append("aria2c")
