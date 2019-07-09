@@ -57,6 +57,9 @@ if __name__ == '__main__':
   dnld.add_argument('--password', help="set both ftp and http password to PASS")
   dnld.add_argument('--unlink', action='store_true', help="remove file before clobber")
 
+  direc = parser.add_argument_group('Directories')
+  direc.add_argument('-P', '--directory-prefix', help="save files to PREFIX/..")
+
   http_opt = parser.add_argument_group('HTTP options')
   http_opt.add_argument('--http-user', help="set http user to USER")
   http_opt.add_argument('--http-password', help="set http password to PASS")
@@ -150,6 +153,10 @@ if __name__ == '__main__':
       cmd.append(args.password)
     if args.unlink is True:
       cmd.append("--allow-overwrite")
+
+    if args.directory_prefix != None:
+      cmd.append("--dir")
+      cmd.append(args.directory_prefix)
 
     if args.http_user != None:
       cmd.append("--http-user")
