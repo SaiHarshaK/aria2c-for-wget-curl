@@ -2,7 +2,7 @@
 # aria2c-for-wget-curl
 Stubs of wget and curl for aria2c to download large files using Debian alternatives subsystem instead of changing the shell scripts.
 
-## Instructions
+## Instructions for setup
 ### Wget
 * Rename original wget to wget-orig
 ```console
@@ -37,3 +37,11 @@ Press <enter> to keep the current choice[*], or type selection number:
 ```
 
 * The setup is ready, try using wget now.
+
+## Details
+* If command cannot be translated to aria2c equivalent, then falls back the the corresponding program.
+* Use --orig flag to use the original program.
+
+## Screenshots
+![wget-aria2c](https://raw.githubusercontent.com/SaiHarshaK/aria2c-for-wget-curl/master/wget/screenshots/wget-aria.png)
+![wget-orig](https://raw.githubusercontent.com/SaiHarshaK/aria2c-for-wget-curl/master/wget/screenshots/wget-orig.png)

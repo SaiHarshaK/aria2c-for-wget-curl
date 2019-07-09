@@ -25,7 +25,8 @@ if __name__ == '__main__':
   parser.add_argument('source', metavar='URL', type=str, help=argparse.SUPPRESS)
   parser.add_argument('--orig', action='store_true', help="Use original curl")
 
-#  parser.add_argument('--orig', action='store_true', help="Use original curl")
+  parser.add_argument('--cacert', metavar='FILE', help="CA certificate to verify peer against")
+  parser.add_argument('--capath', metavar='DIR', help="CA directory to verify peer against")
 
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
   args = parser.parse_args()
@@ -34,6 +35,15 @@ if __name__ == '__main__':
     # construct aria2c command
     cmd = []
     cmd.append("aria2c")
+    # conditions for executing original
+    path = ""
+    if args.capath != None:
+      path += args.capath
+    if args.cacert != None:
+      cmd.append("--ca-certificate")
+      path += args.cacert
+      cmd.append(path)
+
 
     cmd.append(args.source)
 
