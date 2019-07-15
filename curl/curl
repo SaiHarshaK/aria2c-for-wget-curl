@@ -36,6 +36,10 @@ if __name__ == '__main__':
   parser.add_argument('--create-dirs', action='store_true', help="Create necessary local directory hierarchy") #does this by default
   #parser.add_argument('-q', '--disable', action='store_true', help="Disable .curlrc")
   parser.add_argument('--disallow-username-in-url', action='store_true', help="Disallow username in url")
+  parser.add_argument('-H', '--header', metavar='string', help="Pass custom header(s) to server")
+  parser.add_argument('--hostpubmd5', metavar='md5', help="Acceptable MD5 hash of the host public key")
+  parser.add_argument('--interface', metavar='name', help="Use network INTERFACE (or address)")
+  parser.add_argument('-4', '--ipv4', action='store_true', help="Resolve names to IPv4 addresses")
 
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
   args = parser.parse_args()
@@ -78,6 +82,21 @@ if __name__ == '__main__':
     if args.output != None:
       cmd.append("-o")
       cmd.append(args.output)
+    if args.header != None:
+      # check if file is passed
+      if ('@' in args.header):
+        exec_orig()
+        sys.exit()
+      cmd.append("--header")
+      cmd.append(args.header)
+    if args.hostpubmd5 != None:
+      arg_build = "--ssh-host-key-md=" + "md5=" + args.hostpubmd5
+      cmd.append(arg_build)
+    if args.interface != None:
+      cmd.append("--interface")
+      cmd.append(args.interface)
+    if args.ipv4 == True:
+      cmd.append("--disable-ipv6")
 
     for source in args.source:
       cmd.append(source)

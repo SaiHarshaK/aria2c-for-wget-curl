@@ -43,6 +43,7 @@ Press <enter> to keep the current choice[*], or type selection number:
 * Use --orig flag to use the original program.
 * curl-stub is WIP.
 * .curlrc is not supported as of now
+* multiple headers yet to be supported
 
 ### Curl
 * only files are supported for --cookie flag
