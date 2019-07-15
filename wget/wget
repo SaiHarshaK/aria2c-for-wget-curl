@@ -64,7 +64,7 @@ if __name__ == '__main__':
   http_opt.add_argument('--http-user', help="set http user to USER")
   http_opt.add_argument('--http-password', help="set http password to PASS")
   http_opt.add_argument('--no-cache', action='store_true', help="disallow server-cached data")
-  http_opt.add_argument('--header', help="insert STRING among the headers")
+  http_opt.add_argument('--header', action='append', help="insert STRING among the headers")
   http_opt.add_argument('--proxy-user', help="set USER as proxy username")
   http_opt.add_argument('--proxy-password', help="set PASS as proxy password")
   http_opt.add_argument('--referer', help="include 'Referer: URL' header in HTTP request")
@@ -166,9 +166,6 @@ if __name__ == '__main__':
       cmd.append(args.http_password)
     if args.no_cache == True:
       cmd.append("--http-no-cache")
-    if args.header != None:
-      cmd.append("--header")
-      cmd.append(args.header)
     if args.proxy_user != None:
       cmd.append("--http-proxy-user")
       cmd.append(args.proxy_user)
@@ -210,6 +207,11 @@ if __name__ == '__main__':
       cmd.append(args.ftp_password)
     if args.no_passive_ftp == True:
       cmd.append("--ftp-pasv=false")
+
+    if args.header != None:
+      for header in args.header:
+        cmd.append("--header")
+        cmd.append(header)
 
     for source in args.source:
       cmd.append(source)
