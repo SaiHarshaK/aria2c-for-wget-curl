@@ -38,9 +38,14 @@ Press <enter> to keep the current choice[*], or type selection number:
 
 * The setup is ready, try using wget now.
 
-## Details
+## Note
 * If command cannot be translated to aria2c equivalent, then falls back the the corresponding program.
 * Use --orig flag to use the original program.
+* curl-stub is WIP.
+* .curlrc is not supported as of now
+
+### Curl
+* only files are supported for --cookie flag
 
 ## Screenshots
 ![wget-aria2c](https://raw.githubusercontent.com/SaiHarshaK/aria2c-for-wget-curl/master/wget/screenshots/wget-aria.png)

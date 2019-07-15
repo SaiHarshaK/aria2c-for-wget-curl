@@ -100,9 +100,9 @@ if __name__ == '__main__':
     if args.append_output != None:
       cmd.append("-l")
       cmd.append(args.append_output)
-    if args.debug is True:
+    if args.debug == True:
       cmd.append("--log-level=debug")
-    if args.quiet is True:
+    if args.quiet == True:
       cmd.append("-q")
     if args.input_file != None:
       cmd.append("-i")
@@ -114,13 +114,13 @@ if __name__ == '__main__':
     if args.output_document != None:
       cmd.append("-o")
       cmd.append(args.output_document)
-    if args.no_clobber is True:
+    if args.no_clobber == True:
       cmd.append("--auto-file-renaming=false")
-    if args.no_netrc is True:
+    if args.no_netrc == True:
       cmd.append("--no-netrc")
-    if args.contin is True:
+    if args.contin == True:
       cmd.append("-c")
-    if args.timestamping is True:
+    if args.timestamping == True:
       cmd.append("--conditional-get")
     if args.timeout != None:
       cmd.append("-t")
@@ -137,9 +137,9 @@ if __name__ == '__main__':
     if args.limit_rate != None:
       cmd.append("--max-overall-download-limit=")
       cmd.append(args.limit_rate)
-    if args.ignore_case is True:
+    if args.ignore_case == True:
       cmd.append("--auto-file-renaming=false")
-    if args.inet4_only is True:
+    if args.inet4_only == True:
       cmd.append("--disable-ipv6")
     if args.user != None:
       cmd.append("--http-user")
@@ -151,7 +151,7 @@ if __name__ == '__main__':
       cmd.append(args.password)
       cmd.append("--ftp-passwd")
       cmd.append(args.password)
-    if args.unlink is True:
+    if args.unlink == True:
       cmd.append("--allow-overwrite")
 
     if args.directory_prefix != None:
@@ -164,7 +164,7 @@ if __name__ == '__main__':
     if args.http_password != None:
       cmd.append("--http-passwd")
       cmd.append(args.http_password)
-    if args.no_cache is True:
+    if args.no_cache == True:
       cmd.append("--http-no-cache")
     if args.header != None:
       cmd.append("--header")
@@ -181,7 +181,7 @@ if __name__ == '__main__':
     if args.user_agent != None:
       cmd.append("--user-agent")
       cmd.append(args.user_agent)
-    if args.no_http_keep_alive is True:
+    if args.no_http_keep_alive == True:
       cmd.append("--enable-http-keep-alive=false")
     if args.load_cookies != None:
       cmd.append("--load-cookies")
@@ -189,7 +189,7 @@ if __name__ == '__main__':
     if args.save_cookies != None:
       cmd.append("--save-cookies")
       cmd.append(args.save_cookies)
-    if args.auth_no_challenge is False:
+    if args.auth_no_challenge == False:
       cmd.append("--http-auth-challenge=true")
 
     if args.certificate != None:
@@ -208,7 +208,7 @@ if __name__ == '__main__':
     if args.ftp_password != None:
       cmd.append("--ftp-passwd")
       cmd.append(args.ftp_password)
-    if args.no_passive_ftp is True:
+    if args.no_passive_ftp == True:
       cmd.append("--ftp-pasv=false")
 
     for source in args.source:
