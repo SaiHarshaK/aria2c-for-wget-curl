@@ -68,7 +68,6 @@ if __name__ == '__main__':
 
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
   args = parser.parse_args()
-  print(args)
 
   if (len(args.args) == 0 and args.orig == False and
     (args.output != None or args.remote_name == True  or args.remote_name_all == True) and
@@ -221,7 +220,6 @@ if __name__ == '__main__':
       cmd.append(source)
 
     print("Using aria2c:")
-    print(cmd)
     subprocess.run(cmd)
 
   else:

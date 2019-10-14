@@ -76,8 +76,9 @@ if __name__ == '__main__':
 
   https_opt = parser.add_argument_group('HTTPS (SSL/TLS) options')
   https_opt.add_argument('--certificate', help="client certificate file. PKCS12 (.p12, .pfx) or in PEM format")
-  https_opt.add_argument('--private-key', help="private key file. PEM format")
-  https_opt.add_argument('--ca-certificate', help="file with the bundle of CAs. PEM format.")
+  https_opt.add_argument('--private-key', help="private key file. PEM format for aria2c")
+  https_opt.add_argument('--private-key-type', help="private key type, PEM or DER")
+  https_opt.add_argument('--ca-certificate', help="file with the bundle of CAs. PEM format for aria2c.")
 
   ftp_opt = parser.add_argument_group('FTP options')
   ftp_opt.add_argument('--ftp-user', help="set ftp user to USER")
@@ -87,7 +88,8 @@ if __name__ == '__main__':
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
   args = parser.parse_args()
 
-  if len(args.args) == 0 and args.orig is False:
+  if len(args.args) == 0 and args.orig is False and
+  (args.private_key_type == None or args.private_key_type == "PEM"):
     # construct aria2c command
     cmd = []
     cmd.append("aria2c")
