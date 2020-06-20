@@ -18,9 +18,9 @@ def exec_orig():
 
   subprocess.run(cmd)
 
-if __name__ == '__main__':
+def main(args=sys.argv[1:]):
   parser = argparse.ArgumentParser(
-            description='curl stub for aria2c.',
+            description='Curl stub for aria2c.',
             prog='curl', usage='%(prog)s [options...] <url>', formatter_class=argparse.RawDescriptionHelpFormatter)
   parser.add_argument('source', metavar='URLs', type=str, nargs='+', help=argparse.SUPPRESS)
   parser.add_argument('--orig', action='store_true', help="Use original curl")
@@ -67,10 +67,9 @@ if __name__ == '__main__':
   parser.add_argument('-A', '--user-agent', metavar='name', help="Send User-Agent <name> to server")
 
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
-  args = parser.parse_args()
-  print(args)
+  args = parser.parse_args(args)
 
-  if (len(args.args) == 0 and args.orig == False and
+  if (len(args.args) == 0 and args.orig is False and
     (args.output != None or args.remote_name == True  or args.remote_name_all == True) and
     (args.cert_type == None or args.cert_type == "PEM") and
     (args.key_type == None or args.key_type == "PEM") and
@@ -221,8 +220,10 @@ if __name__ == '__main__':
       cmd.append(source)
 
     print("Using aria2c:")
-    print(cmd)
     subprocess.run(cmd)
 
   else:
     exec_orig()
+
+if __name__ == '__main__':
+  main(sys.argv[1:])

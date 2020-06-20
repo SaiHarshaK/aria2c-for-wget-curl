@@ -1,0 +1,11 @@
+README.md
+setup.py
+aria2stub.egg-info/PKG-INFO
+aria2stub.egg-info/SOURCES.txt
+aria2stub.egg-info/dependency_links.txt
+aria2stub.egg-info/entry_points.txt
+aria2stub.egg-info/top_level.txt
+curl/__init__.py
+curl/stub.py
+wget/__init__.py
+wget/stub.py

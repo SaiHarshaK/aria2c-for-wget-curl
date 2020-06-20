@@ -1,0 +1,4 @@
+[console_scripts]
+curl = curl.stub:main
+wget = wget.stub:main
+

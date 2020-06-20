@@ -18,7 +18,7 @@ def exec_orig():
 
   subprocess.run(cmd)
 
-if __name__ == '__main__':
+def main(args=sys.argv[1:]):
   parser = argparse.ArgumentParser(
             description='GNU Wget stub for aria2c.\n' +
             'Mandatory arguments to long options are mandatory for short options too.',
@@ -86,10 +86,10 @@ if __name__ == '__main__':
   ftp_opt.add_argument('--no-passive-ftp', action='store_true', help='disable the "passive" transfer mode')
 
   parser.add_argument('args', nargs=argparse.REMAINDER, help=argparse.SUPPRESS)
-  args = parser.parse_args()
+  args = parser.parse_args(args)
 
-  if len(args.args) == 0 and args.orig is False and
-  (args.private_key_type == None or args.private_key_type == "PEM"):
+  if (len(args.args) == 0 and args.orig is False and
+    (args.private_key_type == None or args.private_key_type == "PEM")):
     # construct aria2c command
     cmd = []
     cmd.append("aria2c")
@@ -223,3 +223,6 @@ if __name__ == '__main__':
 
   else:
     exec_orig()
+
+if __name__ == '__main__':
+  main(sys.argv[1:])

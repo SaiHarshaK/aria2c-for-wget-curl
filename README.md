@@ -1,4 +1,3 @@
-
 # aria2c-for-wget-curl
 Stubs of wget and curl for aria2c to download large files using Debian alternatives subsystem instead of changing the shell scripts.
 aria2c is better when compareed to wget/curl because it tries to utilize your maximum download bandwidth.
@@ -10,15 +9,22 @@ If not possible to do so, it executes the original command.
 * Install wget and(or) curl
 
 ### Wget
-* Rename original wget to wget-orig
+* Copy original wget to wget-orig
 ```console
 $ sudo cp /usr/bin/wget /usr/bin/wget-orig
 ```
-* Copy the downloaded wget as wget-stub
+* Install the aria2stub package.
 ```console
-$ sudo cp ~/path/to/wget-stub /usr/bin/wget-stub
+$ pip3 install aria2stub
 ```
-* Use update-alternatives to set default binary
+Now `wget` command runs the stub as default for the current user.
+
+##### (BELOW STEPS ARE OPTIONAL) Make all users execute the stub by default.
+* Move the installed binary(default=/usr/local/bin/) to /usr/bin/.
+```console
+$ sudo mv /usr/local/bin/wget /usr/bin/wget-stub
+```
+* Use update-alternatives to set default binary.
  ```console
 $ sudo update-alternatives --install /usr/bin/wget wget /usr/bin/wget-orig 30
 update-alternatives: using /usr/bin/wget-orig to provide /usr/bin/wget (wget) in auto mode
@@ -45,13 +51,20 @@ Press <enter> to keep the current choice[*], or type selection number:
 * The setup is ready, try using wget now.
 
 ### Curl
-* Rename original curl to curl-orig
+* Copy original curl to curl-orig
 ```console
 $ sudo cp /usr/bin/curl /usr/bin/curl-orig
 ```
-* Copy the downloaded curl as curl-stub
+* Install the aria2stub package.
 ```console
-$ sudo cp ~/path/to/curl-stub /usr/bin/curl-stub
+$ pip3 install aria2stub
+```
+Now `curl` command runs the stub as default for the current user.
+
+##### (BELOW STEPS ARE OPTIONAL) Make all users to execute the stub by default.
+* Move the installed binary(default=/usr/local/bin/) to /usr/bin/.
+```console
+$ sudo cp /usr/local/bin/curl /usr/bin/curl-stub
 ```
 * Use update-alternatives to set default binary
  ```console
@@ -80,9 +93,13 @@ Press <enter> to keep the current choice[*], or type selection number:
 * The setup is ready, try using curl now.
 
 ## Note
-* If command cannot be translated to aria2c equivalent, then falls back the the corresponding program.
+* If command cannot be translated to aria2c equivalent, then it falls back to the corresponding program.
 * Use --orig flag to use the original program.
 * .curlrc is not supported as of now
+* To revert back to using the original command(if followed optional approach), run the following command for wget(similarly for curl):
+ ```console
+$ sudo update-alternatives --config wget
+```
 
 ### Curl
 * only files are supported for --cookie flag
